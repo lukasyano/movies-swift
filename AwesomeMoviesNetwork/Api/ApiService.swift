@@ -1,12 +1,14 @@
 import Combine
 import Foundation
 
-protocol ApiService {
+public protocol ApiService {
     func getTrendingMovies(pageNr: Int) -> AnyPublisher<MoviesResponse, Error>
 }
 
-class DefaultApiService: ApiService {
-    func getTrendingMovies(pageNr _: Int) -> AnyPublisher<MoviesResponse, Error> {
+public class DefaultApiService: ApiService {
+    public init() {}
+    
+    public func getTrendingMovies(pageNr _: Int) -> AnyPublisher<MoviesResponse, Error> {
         guard var urlComponents = URLComponents(string: Constants.moviesBaseURL + Constants.trendingMoviesWeek) else {
             let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
             return Fail(error: error).eraseToAnyPublisher()
@@ -27,11 +29,4 @@ class DefaultApiService: ApiService {
             .decode(type: MoviesResponse.self, decoder: JSONDecoder())
             .eraseToAnyPublisher()
     }
-}
-
-enum Constants {
-    static let moviesBaseURL = "https://api.themoviedb.org/3/"
-    static let imageBaseURL: String = "https://image.tmdb.org/t/p/w342"
-
-    static let trendingMoviesWeek = "trending/movie/week"
 }

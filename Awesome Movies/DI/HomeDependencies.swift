@@ -1,3 +1,4 @@
+import AwesomeMoviesNetwork
 import Factory
 
 struct HomeDependencies {

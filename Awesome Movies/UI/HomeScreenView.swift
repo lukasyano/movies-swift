@@ -1,5 +1,4 @@
 import AwesomeMoviesUI
-import AwesomeMoviesUtilities
 import SwiftUI
 
 private enum ViewConstants {
@@ -16,13 +15,11 @@ struct HomeScreenView<ViewModel: HomeViewModel>: View {
 
                 ScrollViewReader { scrollViewProxy in
                     ScrollView {
-                        LazyVStack {
+                        VStack {
                             ForEach(viewModel.data) { movie in
                                 MovieCard(movie: movie, bookmarkAction: { () })
                                 if movie != viewModel.data.last {
                                     Divider()
-                                        .background(RandomGradient.generate())
-                                        
                                 }
                             }
                         }
@@ -32,7 +29,7 @@ struct HomeScreenView<ViewModel: HomeViewModel>: View {
                         ToolbarItem(placement: .principal) {
                             withAnimation {
                                 LLLPickerView(selectedItem: $viewModel.selectedSortingType)
-                                    .onChange(of: viewModel.selectedSortingType) { _ in
+                                    .onChange(of: viewModel.selectedSortingType) { _, _ in
                                         withAnimation {
                                             guard
                                                 let moviesFirstIndex = viewModel.data.first?.id else { return }

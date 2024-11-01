@@ -1,3 +1,4 @@
+import AwesomeMoviesUI
 import AwesomeMoviesUtilities
 
 enum TrendingMoviesSortingType: String, Hashable, CaseIterable, Defaultable {

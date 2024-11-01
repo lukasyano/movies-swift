@@ -1,5 +1,8 @@
 import SwiftUI
-import AwesomeMoviesUtilities
+
+public protocol Defaultable: RawRepresentable, Hashable where RawValue == String {
+    static var `default`: Self { get }
+}
 
 public struct LLLPickerView<T: Defaultable & CaseIterable>: View {
     @Binding var selectedItem: T
